@@ -36,6 +36,7 @@ class Num {
     public int getHundreds() {
         return (Math.abs(number) / 100) % 10;
     }
+    //
 }
 
 public class DigitExtractor {
