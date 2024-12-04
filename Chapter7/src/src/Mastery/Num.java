@@ -3,11 +3,8 @@ package src.Mastery;
 public class Num {
 	//number variable which will store the integer the user enters
 	private int number;
-	public Num(int nextInt) {
-		// TODO Auto-generated constructor stub
-	}
 	//constructor method to create num object with variable of number which equals the parameter needed to create object
-	public void Num (int integer) {
+	public Num (int integer) {
 		number = integer;
 	}
 	//method returns the number variable 
