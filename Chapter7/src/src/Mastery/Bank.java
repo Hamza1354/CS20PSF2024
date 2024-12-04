@@ -1,12 +1,12 @@
 
 package src.Mastery;
 import java.text.DecimalFormat;
-public class PiggyBank {
+public class Bank {
 	//bank variable which will store all the money the user has and adds
 		private double balance;
 		private DecimalFormat formatter = new DecimalFormat("#.##");
 		//constructor method to create piggy bank giving bank a value of zero
-		public PiggyBank() {
+		public Bank() {
 			balance = 0;
 		}
 		//method will return value of bank as value of money in the piggy bank
