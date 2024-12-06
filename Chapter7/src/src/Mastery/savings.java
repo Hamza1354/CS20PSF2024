@@ -29,17 +29,22 @@ public class savings {
 			System.out.println("2. Add a penny.");
 			System.out.println("3. Add a nickel");
 			System.out.println("4. Add a dime");
+			
 			System.out.println("5. Add a quarter");
 			System.out.println("6. Take money out of bank");
 			System.out.println("Enter 0 to quit");
 			System.out.print("Enter your choice: ");
+			
 			//recording users choice in choice variable
 			choice = input.nextInt();
+			
 			//if they picked choice 0 then it will exit out of the while loop which then ends the program
 			if (choice == 0) {
 				break;
 			}
 			// if they picked choice 1 to 6 then the corresponding action will run
+			
+			
 			switch (choice) {
 			// choice 1 will access the show balance method to output the user's piggy bank balance
 			case 1:System.out.println("your bank balance is $" + bank.showBalance()); break;
@@ -54,13 +59,16 @@ public class savings {
 			System.out.println("You added a dime to your balance, the new balance is $" + bank.showBalance());break;
 			//choice 5 accesses method which adds quarter to user's piggy bank
 			case 5:bank.addQuarter();
+			
 			System.out.println("You added a quarter to your balance, the new balance is $" + bank.showBalance());break;
 			//takes out how much money user wants out of piggy bank only if it is less than or equal to how much is in piggy bank
 			case 6:System.out.print("How many dollars would you like to take out: ");
 					double takenMoney = input.nextDouble();
+					
 					System.out.println(bank.takeMoney(takenMoney) + " your balance is $" + bank.showBalance()); break;
 			// if user presses a number that is not within the range 0 to 6 than will be asked to try again, repeating the while loop
 			default:System.out.println("You entered a invalid number please try again");
+			
 			
 			}
 		}

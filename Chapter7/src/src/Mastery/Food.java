@@ -1,17 +1,19 @@
 package src.Mastery;
 
 public class Food {
-	//creating price variable to keep track of total price of users order
+	//made price variable to keep track of total price of users order
+	
 	private double price;
-	//constructor method which initializes the total price of the order to zero since nothing has been ordered yet
+	
+	//constructor method which determine the total price of the order to zero since nothing has been ordered yet
 	public Food(){
 		price = 0;
 	}
 	//method which takes number of burgers, and grams of fat, carbs, and fiber a singular burger has
 	public void hamburger(int numBurgers, double fat, double carbs, double fiber) {
-		//multiplies number of burgers by its dollar value and adds it to price
+		//multiplies the  burgers by its dollar value and puts it into price
 		price += (numBurgers * 1.85);
-		//takes fat, carbs, and fiber parameters and outputs the nutrition information of a singular burger
+		//takes fat, carbs, and fiber boundary and outputs the nutrition information of one burger
 		System.out.println("Each hamburger has "+ fat + "g of fat, " + carbs + "g of carbs, and " + fiber + "g of fiber");
 	}
 	
@@ -19,7 +21,7 @@ public class Food {
 	public void salad(int numSalads, double fat, double carbs, double fiber) {
 		//multiplies number of salads by its dollar value and adds it to price
 		price += (numSalads * 2);
-		//takes fat, carbs, and fiber parameters and outputs the nutrition information of a singular salad
+		//takes fat, carbs, and fiber boundary and outputs the nutrition information of one burger
 		System.out.println("Each salad has "+ fat + "g of fat, " + carbs + "g of carbs, and " + fiber + "g of fiber");
 	}
 	
@@ -27,7 +29,7 @@ public class Food {
 	public void frenchFries(int numFries, double fat, double carbs, double fiber) {
 		//multiplies number of servings of french fries by its dollar value and adds it to price
 		price += (numFries * 1.3);
-		//takes fat, carbs, and fiber parameters and outputs the nutrition information of a singular serving of french fries
+		//takes fat, carbs, and fiber boundary and outputs the nutrition information of one french fries
 		System.out.println("Each serving of french fries has "+ fat + "g of fat, " + carbs + "g of carbs, and " + fiber + "g of fiber");
 	}
 	
