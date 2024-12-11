@@ -12,6 +12,7 @@ public class COURSE {
         Scanner scanner = new Scanner(System.in);
         for (int num1 = 0; num1 < number; num1++) {
         	//ask the user for their grades
+        	
         	//make the the variable equal to 0 to start store proper
             System.out.println("Enter grades for Student " + (num1 + 1) + ":");
             for (int num = 0; num < NUMBER; num++) {
@@ -24,8 +25,10 @@ public class COURSE {
     // Display all grades
     public void showGrades() {
         System.out.println("\nGrades for all students:");
-        for (int num1 = 0; num1 < number; num1++) {
+        for (int num1 = 0; num1 < number; num1++) 
+        {
             System.out.print("Student " + (num1 + 1) + ": ");
+            
             for (int num = 0; num < NUMBER; num++) {
                 System.out.print(GRADES1[num1][num] + " ");
             }
@@ -59,3 +62,4 @@ public class COURSE {
         return calculateAvg(testNumber - 1, false);
     }
 }
+
