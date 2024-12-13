@@ -17,6 +17,8 @@ public class ReadButton {
         //Use your Phidgets 
         while(true){
             System.out.println("Button State: " + redButton.getState());
+            
+            
             Thread.sleep(150);
         }
     }
