@@ -1,7 +1,5 @@
 package Events;
 
-import com.phidget22.*;
-
 public class ButtonEvents {
 
 	//Add Phidgets Library
