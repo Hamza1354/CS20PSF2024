@@ -1,0 +1,36 @@
+package Events;
+
+import com.phidget22.*;
+
+public class Button_EventsPRESSED {
+    //Handle Exceptions
+    public static void main(String[] args) throws Exception {
+       
+        //Create
+        DigitalInput REDButton = new DigitalInput();
+
+        //Address
+        REDButton.setIsHubPortDevice(true);
+        REDButton.setHubPort(0);
+
+        //Event | Event code runs when data input from the sensor changes.
+        REDButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                // Check the state and print the corresponding message
+                if (e.getState()) {
+                    System.out.println("Pressed");
+                } else {
+                    System.out.println("Not Pressed");
+                }
+            }
+        });
+
+        //Open
+        REDButton.open(1000);
+
+        //Keep program running
+        while (true) {
+            Thread.sleep(150);
+        }
+    }
+}
