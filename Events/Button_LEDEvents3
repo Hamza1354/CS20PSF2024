@@ -1,0 +1,90 @@
+package Events;
+
+// Add Phidgets Library
+import com.phidget22.*;
+
+public class Button_LEDEvents3 {
+    // Turn on/off LEDs with Global Variables
+    static boolean turnRedLEDOn = false;
+    static boolean turnGreenLEDOn = false;
+
+    // Variables to count button presses
+    static int redButtonPressCount = 0;
+    static int greenButtonPressCount = 0;
+
+    // Handle Exceptions
+    public static void main(String[] args) throws Exception {
+
+        // Create
+        DigitalInput redButton = new DigitalInput();
+        DigitalInput greenButton = new DigitalInput();
+        DigitalOutput redLED = new DigitalOutput();
+        DigitalOutput greenLED = new DigitalOutput();
+
+        // Address
+        redButton.setHubPort(0);
+        redButton.setIsHubPortDevice(true);
+        greenButton.setHubPort(5);
+        greenButton.setIsHubPortDevice(true);
+        redLED.setHubPort(1);
+        redLED.setIsHubPortDevice(true);
+        greenLED.setHubPort(4);
+        greenLED.setIsHubPortDevice(true);
+
+        // Open
+        redLED.open(1000);
+        greenLED.open(1000);
+        redButton.open(1000);
+        greenButton.open(1000);
+
+        // Event listener for the red button
+        redButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                // Increment the red button press count if the button is pressed
+                if (e.getState()) {
+                    redButtonPressCount++;
+                    System.out.println("Red Button Pressed! Total Presses: " + redButtonPressCount);
+                    checkForWinner();
+                }
+            }
+        });
+
+        // Event listener for the green button
+        greenButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                // Increment the green button press count if the button is pressed
+                if (e.getState()) {
+                    greenButtonPressCount++;
+                    System.out.println("Green Button Pressed! Total Presses: " + greenButtonPressCount);
+                    checkForWinner();
+                }
+            }
+        });
+
+        // Use your Phidgets | In the button events you recorded the Button State. Here we will use that data to turn on/off the LEDs
+        while (true) {
+            // Turn red LED on based on red button input
+            redLED.setState(turnRedLEDOn);
+            // Turn green LED on based on green button input
+            greenLED.setState(turnGreenLEDOn);
+            // Sleep for 150 milliseconds 
+            Thread.sleep(150);
+        }
+    }
+
+    // Method to check for a winner
+    private static void checkForWinner() {
+        if (redButtonPressCount >= 10) {
+            turnRedLEDOn = true;
+            turnGreenLEDOn = true;
+            System.out.println("Red Player Wins!");
+            // Optionally, you can reset the game or exit
+            System.exit(0); // Exit the program
+        } else if (greenButtonPressCount >= 10) {
+            turnRedLEDOn = true;
+            turnGreenLEDOn = true;
+            System.out.println("Green Player Wins!");
+            
+        }
+    }
+}
