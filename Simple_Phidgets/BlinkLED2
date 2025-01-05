@@ -1,0 +1,32 @@
+package Simple_Phidgets;
+
+// Add Phidgets Library
+import com.phidget22.*;
+
+public class BlinkLED2 {
+    
+    public static void main(String[] args) throws Exception {
+
+        // Create DigitalOutput object 
+        DigitalOutput redLED = new DigitalOutput();
+
+        // Address
+        redLED.setHubPort(1);
+        redLED.setIsHubPortDevice(true);
+
+        // Open the LED with a timeout of 1000 
+        redLED.open(1000);
+
+        // Flash the LED on and off 3 times
+        for (int i = 0; i < 3; i++) {
+            redLED.setState(true);  // Turn the LED on
+            Thread.sleep(500);   
+            redLED.setState(false); // Turn the LED off
+            Thread.sleep(500);       
+        }
+
+        // Optionally, you can turn off the LED after flashing
+        redLED.setState(false);
+        System.out.println("Flashing completed. The LED is OFF.");
+    }
+}
