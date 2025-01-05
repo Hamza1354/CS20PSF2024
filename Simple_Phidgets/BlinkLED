@@ -1,0 +1,44 @@
+package Simple_Phidgets;
+
+import com.phidget22.*;
+
+public class BlinkLED {
+    // Handle Exceptions
+    public static void main(String[] args) {
+        try {
+            // Create DigitalOutput instance for the green LED
+            DigitalOutput greenLED = new DigitalOutput();
+            
+            // Address: Set the hub port for the green LED (change as needed)
+            greenLED.setHubPort(4); // Assuming the green LED is connected to hub port 1
+            greenLED.setIsHubPortDevice(true);
+
+            // Open the LED with a timeout of 1000 milliseconds
+            greenLED.open(1000);
+
+            // Set the duration for how long the LED should blink 
+            long blink = 2000; // 10 seconds
+            long start = System.currentTimeMillis(); // Get the current time
+
+            // Blink the LED  until the time limit is reached
+            while (System.currentTimeMillis() - start < blink) {
+                greenLED.setState(true); 
+                System.out.println("Green LED is ON.");
+                Thread.sleep(500);        
+                greenLED.setState(false); 
+                System.out.println("Green LED is OFF.");
+                Thread.sleep(500);        
+            }
+
+            // Close the LED after use
+            greenLED.close();
+            
+            System.out.println("Green LED closed.");
+        } catch (PhidgetException e) {
+            System.err.println("Phidget Exception: " + e.getDescription());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt(); // Restore  status
+            System.err.println("Thread was interrupted: " + e.getMessage());
+        }
+    }
+}
