@@ -1,0 +1,26 @@
+package Temperature;
+
+import com.phidget22.*;
+
+public class Read_Temperature {
+    public static void main(String[] args) throws Exception {
+
+        // Create a object
+        TemperatureSensor temperatureSensor = new TemperatureSensor();
+
+        // Open  connection to  Phidget
+        temperatureSensor.open(1000);
+
+        
+        while (true) {
+            // Get the temperature in Celsius
+            double celsius = temperatureSensor.getTemperature();
+            // Convert Celsius to Fahrenheit
+            double fahrenheit = (celsius * 1.8) + 32;
+            // Print the temperature in  Celsius and Fahrenheit
+            System.out.println("Temperature: " + celsius + " °C | " + fahrenheit + " °F");
+            
+            Thread.sleep(150);
+        }
+    }
+}
