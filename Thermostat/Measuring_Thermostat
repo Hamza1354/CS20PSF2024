@@ -30,7 +30,7 @@ public class Measuring_Thermostat {
         redButton.setIsHubPortDevice(true);
         redButton.open(1000);
         
-        tempSensor.open(1000);
+     
         
        
         int setTemperature = 21; // Starting set temperature
