@@ -1,0 +1,90 @@
+package Thermostat;
+
+import com.phidget22.*;
+
+public class Measuring_Thermostat {
+
+    public static void main(String[] args) throws Exception {
+
+        // Output/input objects
+        TemperatureSensor tempSensor = new TemperatureSensor();
+        DigitalOutput greenLED = new DigitalOutput();
+        DigitalOutput redLED = new DigitalOutput();
+        DigitalInput greenButton = new DigitalInput();
+        DigitalInput redButton = new DigitalInput();
+
+        // Set  devices
+        greenLED.setHubPort(4);
+        greenLED.setIsHubPortDevice(true);
+        greenLED.open(1000);
+
+        redLED.setHubPort(1);
+        redLED.setIsHubPortDevice(true);
+        redLED.open(1000);
+
+        greenButton.setHubPort(5);
+        greenButton.setIsHubPortDevice(true);
+        greenButton.open(1000);
+
+        redButton.setHubPort(0);
+        redButton.setIsHubPortDevice(true);
+        redButton.open(1000);
+        
+        tempSensor.open(1000);
+        
+       
+        int setTemperature = 21; // Starting set temperature
+        int maxTemperature = 30;  // Maximum set temperature
+        int minTemperature = 15;  // Minimum set temperature
+
+        while (true) {
+            double currentTemperature = tempSensor.getTemperature();
+
+            // Check  green button 
+            if (greenButton.getState()) {
+                if (setTemperature < maxTemperature) {
+                    setTemperature++;
+                    System.out.println("Set Temperature increased to: " + setTemperature + "˚C");
+                } else {
+                    System.out.println("Maximum temperature reached: " + setTemperature + "˚C");
+                }
+                // Debounce
+                while (greenButton.getState()) {
+                    Thread.sleep(10);
+                }
+                Thread.sleep(500); 
+            }
+
+            // Check  red button 
+            if (redButton.getState()) {
+                if (setTemperature > minTemperature) {
+                    setTemperature--;
+                    System.out.println("Set Temperature decreased to: " + setTemperature + "˚C");
+                } else {
+                    System.out.println("Minimum temperature reached: " + setTemperature + "˚C");
+                }
+                // Debounce
+                while (redButton.getState()) {
+                    Thread.sleep(10);
+                }
+                Thread.sleep(500);
+            }
+
+            // Print current and set temperatures 
+            System.out.println("Current Temperature: " + currentTemperature + "˚C");
+            System.out.println("Set Temperature: " + setTemperature + "˚C");
+
+            // Control LEDs based on temperature difference
+            if (currentTemperature >= setTemperature - 2 && currentTemperature <= setTemperature + 2) {
+                greenLED.setState(true);  
+                redLED.setState(false);  
+            } else {
+                greenLED.setState(false);  
+                redLED.setState(true);      
+            }
+
+            // Wait for 10 seconds before the next reading
+            Thread.sleep(100);
+        }
+    }
+}
