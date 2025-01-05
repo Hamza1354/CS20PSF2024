@@ -1,0 +1,30 @@
+package Simple_Phidgets;
+
+import com.phidget22.*;
+
+public class ReadButton3 {
+    // Handle Exceptions | Exceptions will happen in your code from time to time. 
+    // Make sure you’ve added "throws Exception" to your main method.
+    public static void main(String[] args) throws Exception {
+        
+        // Create | Here you've created DigitalInput objects for your buttons.
+        
+        DigitalInput greenButton = new DigitalInput(); // Create a DigitalInput for the green button
+
+        // Address | Set the hub port for each button.
+     
+        
+        greenButton.setHubPort(5); // Assuming the green button is connected to port 1
+        greenButton.setIsHubPortDevice(true);
+
+        // Open | Establish a connection between your objects and your physical Phidgets.
+       
+        greenButton.open(1000); // Open the green button
+
+        // Use your Phidgets | Check the state of both buttons and print their states.
+        while (true) {
+            System.out.println("Green Button State: " + greenButton.getState()); // Print the state of the green button
+            Thread.sleep(150);
+        }
+    }
+}
