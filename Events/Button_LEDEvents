@@ -1,0 +1,64 @@
+package Events;
+
+
+//Add Phidgets Library
+import com.phidget22.*;
+
+public class Button_LEDEvents {
+    //Turn on/off LEDs with Global Variables
+    static boolean RedLEDOn = false;
+    static boolean GreenLEDOn = false;
+
+    //Handle Exceptions
+    public static void main(String[] args) throws Exception {
+
+        //Create
+        DigitalInput REDButton = new DigitalInput();
+        DigitalInput GREENButton = new DigitalInput();
+        DigitalOutput REDLED = new DigitalOutput();
+        DigitalOutput GREENLED = new DigitalOutput();
+
+        //Address
+        REDButton.setHubPort(0);
+        REDButton.setIsHubPortDevice(true);
+        GREENButton.setHubPort(5);
+        GREENButton.setIsHubPortDevice(true);
+        REDLED.setHubPort(1);
+        REDLED.setIsHubPortDevice(true);
+        GREENLED.setHubPort(4);
+        GREENLED.setIsHubPortDevice(true);
+
+        //Event | Event code runs when data input from the sensor changes. The following event is a state change event. The code will listen to the button (Digital Input Object) and only run the contain code when the button is pressed or released (state changes).
+        REDButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                //Record button state to turn on/off the red LED
+            	RedLEDOn = e.getState(); 
+            }
+        });
+
+        //Event | Event code runs when data input from the sensor changes. The following event is a state change event. It will listen to the button (Digital Input Object) and only run the contain code when the button is pressed or released (state changes).
+        GREENButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                //Record button state to turn on/off the green LED
+            	GreenLEDOn = e.getState();
+            }
+        });
+
+        //Open
+        REDLED.open(1000);
+        GREENLED.open(1000);
+        REDButton.open(1000);
+        GREENButton.open(1000);
+
+        //Use your Phidgets | In the button events you recorded the Button State. Here we will use that data to turn on/off the LEDs
+        while(true) {
+            //turn red LED on based on red button input
+        	REDLED.setState(GreenLEDOn);
+            //turn green LED on based on green button input
+        	GREENLED.setState(RedLEDOn);
+            //sleep for 150 milliseconds 
+            Thread.sleep(150);
+        }
+    }
+}
+  
