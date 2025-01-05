@@ -1,0 +1,52 @@
+package Events;
+
+import com.phidget22.*;
+
+public class Button_EventGREENPRESSED {
+  
+    public static void main(String[] args) throws Exception {
+       
+        // Create DigitalInput objects for  buttons
+        DigitalInput REDButton = new DigitalInput();
+        DigitalInput GREENButton = new DigitalInput();
+
+        // Address red button
+        REDButton.setIsHubPortDevice(true);
+        REDButton.setHubPort(0);
+
+        // Address  green button
+        GREENButton.setIsHubPortDevice(true);
+        GREENButton.setHubPort(5); // Assuming the green button is connected to port 1
+
+        // Event for the red button
+        REDButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                if (e.getState()) {
+                    System.out.println("Red Button: Pressed");
+                } else {
+                    System.out.println("Red Button: Not Pressed");
+                }
+            }
+        });
+
+        // Event for the green button
+        GREENButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                if (e.getState()) {
+                    System.out.println("Green Button: Pressed");
+                } else {
+                    System.out.println("Green Button: Not Pressed");
+                }
+            }
+        });
+
+        // Open  both buttons to allow it to keep going
+        REDButton.open(1000);
+        GREENButton.open(1000);
+
+        // Keep program running
+        while (true) {
+            Thread.sleep(150);
+        }
+    }
+}
