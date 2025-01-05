@@ -1,0 +1,119 @@
+package Events;
+
+// Add Phidgets Library
+import com.phidget22.*;
+
+public class Attach_Detach_Events {
+    
+    static boolean RedLEDOn = false;
+    static boolean GreenLEDOn = false;
+    
+    public static void main(String[] args) throws Exception {
+       
+        // Create Digital Inputs for buttons
+        DigitalInput REDButton = new DigitalInput();
+        DigitalInput GREENButton = new DigitalInput();
+        
+        // Create Digital Outputs for LEDs
+        DigitalOutput REDLED = new DigitalOutput();
+        DigitalOutput GREENLED = new DigitalOutput();
+
+        // Addressing  devices
+        REDButton.setHubPort(0);
+        REDButton.setIsHubPortDevice(true);
+        GREENButton.setHubPort(5);
+        GREENButton.setIsHubPortDevice(true);
+        REDLED.setHubPort(1);
+        REDLED.setIsHubPortDevice(true);
+        GREENLED.setHubPort(4);
+        GREENLED.setIsHubPortDevice(true);
+
+        // Event for red button 
+        REDButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                // Record button state to turn on/off the red LED
+            	RedLEDOn = e.getState(); 
+            }
+        });
+
+        // Event for green button
+        GREENButton.addStateChangeListener(new DigitalInputStateChangeListener() {
+            public void onStateChange(DigitalInputStateChangeEvent e) {
+                // Record button state to turn on/off the green LED
+            	GreenLEDOn = e.getState();
+            }
+        });
+
+        // Attach Event for red 
+        REDButton.addAttachListener(new AttachListener() {
+            public void onAttach(AttachEvent e) {
+                System.out.println("Attach Red Button!");
+            }
+        });
+
+        // Detach Event for red 
+        REDButton.addDetachListener(new DetachListener() {
+            public void onDetach(DetachEvent e) {
+                System.out.println("Detach Red Button!");
+            }
+        });
+        
+        // Attach Event for green 
+        GREENButton.addAttachListener(new AttachListener() {
+            public void onAttach(AttachEvent e) {
+                System.out.println("Attach Green Button!");
+            }
+        });
+
+        // Detach Event for green 
+        GREENButton.addDetachListener(new DetachListener() {
+            public void onDetach(DetachEvent e) {
+                System.out.println("Detach Green Button!");
+            }
+        });
+
+        // Attach Event for red LED
+        REDLED.addAttachListener(new AttachListener() {
+            public void onAttach(AttachEvent e) {
+                System.out.println("Attach Red LED!");
+            }
+        });
+
+        // Detach Event for red LED
+        REDLED.addDetachListener(new DetachListener() {
+            public void onDetach(DetachEvent e) {
+                System.out.println("Detach Red LED!");
+            }
+        });
+
+        // Attach Event for green LED
+        GREENLED.addAttachListener(new AttachListener() {
+            public void onAttach(AttachEvent e) {
+                System.out.println("Attach Green LED!");
+            }
+        });
+
+        // Detach Event for green LED
+        GREENLED.addDetachListener(new DetachListener() {
+            public void onDetach(DetachEvent e) {
+                System.out.println("Detach Green LED!");
+            }
+        });
+
+        // Open devices
+        REDLED.open(1000);
+        GREENLED.open(1000);
+        REDButton.open(1000);
+        GREENButton.open(1000);
+
+        // Keep program running
+        while (true) {
+            //  red button input
+        	REDLED.setState(RedLEDOn);
+            //  green button input
+        	GREENLED.setState(GreenLEDOn);
+        	
+            Thread.sleep(10);
+        }
+    }
+}
