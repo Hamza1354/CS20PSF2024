@@ -1,0 +1,37 @@
+package Methods;
+
+import com.phidget22.*;
+
+public class LED_Brightness2 {
+     
+    public static void main(String[] args) throws Exception {
+
+        // Create 
+        DigitalOutput redLED = new DigitalOutput();
+
+        // Address 
+        redLED.setHubPort(1);
+        redLED.setIsHubPortDevice(true);
+
+        // Open 
+        redLED.open(1000);
+
+        // Gradually increase brightness
+        for (double dutyCycle = 0.0; dutyCycle <= 1.0; dutyCycle += 0.01) {
+            redLED.setDutyCycle(dutyCycle);
+            Thread.sleep(50); // Adjust the speed of brightness 
+        }
+
+        // Gradually decrease brightness
+        for (double dutyCycle = 1.0; dutyCycle >= 0.0; dutyCycle -= 0.01) {
+            redLED.setDutyCycle(dutyCycle);
+            Thread.sleep(50); // Adjust turn off speed of brightness 
+        }
+
+        // Turn off  LED
+        redLED.setDutyCycle(0.0);
+        
+        // Close  LED
+        redLED.close();
+    }
+}
